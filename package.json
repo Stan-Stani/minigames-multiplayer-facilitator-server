@@ -1,0 +1,20 @@
+{
+  "name": "minigames-multiplayer-faciltator-server",
+  "version": "0.0.0",
+  "description": "Supports settingup multiplayer functionality for minigames repo",
+  "type": "module",
+  "main": "index.ts",
+  "author": "Stan-Stani",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx index.ts"
+  },
+  "dependencies": {
+    "peer": "^1.0.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4"
+  }
+}
