@@ -1,7 +1,7 @@
 import { IClient, PeerServer } from "peer";
 import http from "node:http";
 
-const hostname = "127.0.0.1";
+const hostname = "0.0.0.0";
 const peerServerPort = 41361;
 const peerServer = PeerServer({
   host: hostname,
