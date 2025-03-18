@@ -7,7 +7,10 @@ const peerServer = PeerServer({
   host: hostname,
   port: peerServerPort,
   path: '/',
-  allow_discovery: true
+  allow_discovery: true,
+  corsOptions: {
+    origin: "*"
+  }
 });
 console.log(`Peer Server running at http://${hostname}:${peerServerPort}/`);
 
