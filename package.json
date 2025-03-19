@@ -7,6 +7,7 @@
   "author": "Stan-Stani",
   "license": "MIT",
   "scripts": {
+    "prod": "tsx --env-file=.env index.ts ",
     "dev": "tsx index.ts"
   },
   "dependencies": {

@@ -1,5 +1,8 @@
 import { IClient, PeerServer } from "peer";
-import http from "node:http";
+import fs from "node:fs";
+
+const SSL_FILES_PATH = process.env["SSL_FILES_PATH"];
+console.log(SSL_FILES_PATH)
 
 const hostname = "0.0.0.0";
 const peerServerPort = 41361;
@@ -11,6 +14,12 @@ const peerServer = PeerServer({
   corsOptions: {
     origin: true,
   },
+  ssl: SSL_FILES_PATH
+    ? {
+        key: fs.readFileSync(`${SSL_FILES_PATH}/privkey.pem`, "utf8"),
+        cert: fs.readFileSync(`${SSL_FILES_PATH}/fullchain.pem`, "utf8"),
+      }
+    : undefined,
 });
 console.log(`Peer Server running at http://${hostname}:${peerServerPort}/`);
 
@@ -33,30 +42,3 @@ peerServer.on("disconnect", (client) => {
   console.log(`${client.getId()} disconnected`);
 });
 
-// const connectedClientIdServerPort = 41362;
-
-// const server = http.createServer((req, res) => {
-//   // Allow localhost with any port during development
-//   const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:3000"];
-//   const origin = req.headers.origin ?? "";
-
-//   if (allowedOrigins.includes(origin)) {
-//     res.setHeader("Access-Control-Allow-Origin", origin);
-//   }
-
-//   res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
-//   res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
-//   res.statusCode = 200;
-//   res.setHeader("Content-Type", "application/json");
-//   const currentClientIdsStringified = JSON.stringify({
-//     currentClientIds: currentClients.map((c) => c.getId()),
-//   });
-
-//   res.end(currentClientIdsStringified);
-// });
-
-// server.listen(connectedClientIdServerPort, hostname, () => {
-//   console.log(
-//     `Connected Client Id Server running at http://${hostname}:${connectedClientIdServerPort}/`
-//   );
-// });
